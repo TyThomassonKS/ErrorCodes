@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missing Controls Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            color: #721c24;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .error-container {
+            text-align: center;
+            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .error-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .error-message {
+            font-size: 18px;
+        }
+        .error-list {
+            margin-top: 10px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                row: params.get('row'),
+                id: params.get('id')
+            };
+        }
+
+        function displayErrorInfo() {
+            const { row, id } = getQueryParams();
+            const errorMessage = document.getElementById('error-message');
+            if (row && id) {
+                errorMessage.textContent = `POA&M ID "${id}" is missing "Controls" with a number in row ${row}. Please check the entry and ensure it is complete.`;
+            } else {
+                errorMessage.textContent = 'Some POA&M IDs are missing "Controls" with a number. Please check the entries and ensure they are complete.';
+            }
+        }
+
+        window.onload = displayErrorInfo;
+    </script>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-title">Missing Controls Error</div>
+        <div class="error-message" id="error-message"></div>
+    </div>
+</body>
+</html>
