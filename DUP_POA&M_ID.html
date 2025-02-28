@@ -34,16 +34,17 @@
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
+                id: params.get('id'),
                 row: params.get('row'),
                 first: params.get('first')
             };
         }
 
         function displayErrorInfo() {
-            const { row, first } = getQueryParams();
+            const { id, row, first } = getQueryParams();
             const errorMessage = document.getElementById('error-message');
-            if (row && first) {
-                errorMessage.textContent = `Duplicate POA&M ID detected in row ${row}. It first appeared in row ${first}. Please check the ID format and ensure each ID is unique.`;
+            if (id && row && first) {
+                errorMessage.textContent = `Duplicate POA&M ID "${id}" detected in row ${row}. It first appeared in row ${first}. Please check the ID format and ensure each ID is unique.`;
             } else {
                 errorMessage.textContent = 'Duplicate POA&M IDs detected. Please check the ID format and ensure each ID is unique.';
             }
