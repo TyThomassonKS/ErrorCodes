@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Yes or Pending Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+        <h1>Multiple Yes or Pending Error</h1>
+        <p><span class="highlight">POA&M ID:</span> <span id="poam-id"></span></p>
+        <p><span class="highlight">Row:</span> <span id="row"></span></p>
+        <p><span class="highlight">Columns:</span> <span id="columns"></span></p>
+        <p><span class="highlight">Value:</span> <span id="value"></span></p>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const poamId = urlParams.get('poamId');
+        const row = urlParams.get('row');
+        const columns = urlParams.get('columns');
+        const value = urlParams.get('value');
+
+        // Set the values in the HTML
+        document.getElementById('poam-id').textContent = poamId;
+        document.getElementById('row').textContent = row;
+        document.getElementById('columns').textContent = columns;
+        document.getElementById('value').textContent = value;
+    </script>
+</body>
+</html>

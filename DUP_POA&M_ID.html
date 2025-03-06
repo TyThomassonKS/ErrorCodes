@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POA&M ID Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                id: params.get('id'),
+                row: params.get('row'),
+                first: params.get('first')
+            };
+        }
+
+        function displayErrorInfo() {
+            const { id, row, first } = getQueryParams();
+            const errorMessage = document.getElementById('error-message');
+            if (id && row && first) {
+                errorMessage.textContent = `Duplicate POA&M ID "${id}" detected in row ${row}. It first appeared in row ${first}. Please check the ID format and ensure each ID is unique.`;
+            } else {
+                errorMessage.textContent = 'Duplicate POA&M IDs detected. Please check the ID format and ensure each ID is unique.';
+            }
+        }
+
+        window.onload = displayErrorInfo;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>POA&M ID Error</h1>
+        <p class="highlight" id="error-message"></p>
+    </div>
+</body>
+</html>

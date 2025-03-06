@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missing Controls Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                row: params.get('row'),
+                id: params.get('id')
+            };
+        }
+
+        function displayErrorInfo() {
+            const { row, id } = getQueryParams();
+            const errorMessage = document.getElementById('error-message');
+            if (row && id) {
+                errorMessage.textContent = `POA&M ID "${id}" is missing "Controls" with a number in row ${row}. Please check the entry and ensure it is complete.`;
+            } else {
+                errorMessage.textContent = 'Some POA&M IDs are missing "Controls" with a number. Please check the entries and ensure they are complete.';
+            }
+        }
+
+        window.onload = displayErrorInfo;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Missing Controls Error</h1>
+        <p class="highlight" id="error-message"></p>
+    </div>
+</body>
+</html>

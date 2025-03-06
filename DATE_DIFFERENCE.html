@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+        <h1>Date Difference Error</h1>
+        <p><span class="highlight">POA&M ID:</span> <span id="poam-id"></span></p>
+        <p><span class="highlight">Row:</span> <span id="row"></span></p>
+        <p><span class="highlight">Original Detection Date (K):</span> <span id="original-detection-date"></span> (<span id="original-detection-serial"></span>)</p>
+        <p><span class="highlight">Scheduled Completion Date (L):</span> <span id="scheduled-completion-date"></span> (<span id="scheduled-completion-serial"></span>)</p>
+        <p><span class="highlight">Expected Scheduled Completion Date:</span> <span id="expected-scheduled-date"></span></p>
+        <p><span class="highlight">Expected Days:</span> <span id="expected-days"></span></p>
+        <p><span class="highlight">Current Difference:</span> <span id="current-difference"></span></p>
+        <p><span class="highlight">Effective Risk:</span> <span id="effective-risk"></span></p>
+    </div>
+
+    <script>
+     // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const poamId = urlParams.get('id');
+        const row = urlParams.get('row');
+        const originalDetectionDate = urlParams.get('originalDate');
+        const scheduledCompletionDate = urlParams.get('scheduledDate');
+        const expectedDays = urlParams.get('expected');
+        const currentDifference = urlParams.get('current');
+        const effectiveRisk = urlParams.get('risk');
+        
+        // Function to convert Excel serial date to JavaScript date and add one day
+        function excelSerialDateToJSDate(serial) {
+            const excelEpoch = new Date(Date.UTC(1899, 11, 30)); // Excel epoch date
+            const jsDate = new Date(excelEpoch.getTime() + serial * 86400000); // Add serial days in milliseconds
+            jsDate.setDate(jsDate.getDate() + 1); // Add one day
+            return jsDate;
+        }
+        
+        const expectedScheduledDate = new Date(excelSerialDateToJSDate(originalDetectionDate).getTime() + expectedDays * 24 * 60 * 60 * 1000).toDateString();
+        
+        // Set the values in the HTML
+        document.getElementById('poam-id').textContent = poamId;
+        document.getElementById('row').textContent = row;
+        document.getElementById('original-detection-date').textContent = excelSerialDateToJSDate(originalDetectionDate).toDateString();
+        document.getElementById('original-detection-serial').textContent = originalDetectionDate;
+        document.getElementById('scheduled-completion-date').textContent = excelSerialDateToJSDate(scheduledCompletionDate).toDateString();
+        document.getElementById('scheduled-completion-serial').textContent = scheduledCompletionDate;
+        document.getElementById('expected-scheduled-date').textContent = expectedScheduledDate;
+        document.getElementById('expected-days').textContent = expectedDays;
+        document.getElementById('current-difference').textContent = currentDifference;
+        document.getElementById('effective-risk').textContent = effectiveRisk;
+    </script>
+</body>
+</html>
