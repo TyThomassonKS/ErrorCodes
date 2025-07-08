@@ -6,28 +6,30 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GovRAMP Schedule Date Warning</title>
 <style>
-    :root {
-      --primary: #1F4D73;
+       :root {
+      --primary: #132B3F;
       --secondary: #38A399;
-      --accent: #087DBF;
-      --text: #454545;
-      --white: #FFFFFF;
-      --black: #000000;
-      --dark-blue: #132B3F;
-      --gray-light: #C4C4C4;
-      --gray-medium: #DADADA;
-      --blue-muted: #4A708F;
-      --teal: #61C7B8;
-      --sky: #6BB0D9;
-      --gray-bg: #EEEEEE;
+      --accent: #132B3F;
+      --text: ##454545;
+      --background: #f9f9f9;
+      --highlight: #d9534f;
     }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--gray-bg);
-      color: var(--text);
+    
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
+    }
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
     }
 
     header {
@@ -35,6 +37,7 @@
       padding: 10px 20px;
       display: flex;
       align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     header img {
@@ -46,48 +49,92 @@
       color: var(--white);
       font-size: 1.5em;
     }
-
-    main {
-      padding: 30px;
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 2rem;
     }
-
-    .warning {
-      background-color: #fff3cd;
-      border-left: 6px solid #ffcc00;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 5px;
-    }
-
-    .warning h2 {
-      color: #856404;
-    }
-
-    .info {
-      margin-top: 10px;
-      font-size: 1.1em;
-    }
-
-    .info span {
-      font-weight: bold;
+    h1 {
       color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .info p {
+      margin: 0.5rem 0;
+    }
+    .highlight {
+      font-weight: bold;
+      color: var(--highlight);
+    }
+    .fix-section {
+      margin-top: 2rem;
+      background-color: #fff8e1;
+      border-left: 5px solid var(--accent);
+      padding: 1rem;
+    }
+    .fix-section h2 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+    footer {
+      background-color: var(--primary);
+      color: white;
+      margin-top: 0rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);      
+    }
+
+    .footer-container {
+      max-width: 500px;
+      padding: 1rem 1rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-logo img {
+      height: 40px;
+      margin-bottom: 0rem;
+    }
+
+    .footer-text p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+      max-width: 700px;
+      font-size: 12px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-<header>
-<img alt="GovRAMP Logo" src="GovRAMP Logo-White.png"/>
-<h1>POA&M Sheet Correction Guidance</h1>
-</header>
+ <header>
+    <img alt="GovRAMP Logo" src="GovRAMP Logo-White.png"/>
+  </header>
 <main>
-<div class="warning">
-<h2>⚠️ Scheduled Date Exceeds Reference Date</h2>
-<div class="info">POAM ID: <span id="poamId"></span></div>
-<div class="info">Row Number: <span id="row"></span></div>
-<div class="info">Status Date: <span id="scheduled"></span></div>
-<div class="info">POAM Date: <span id="reference"></span></div>
+<div class="container">
+<h1>⚠️ Scheduled Date Exceeds Reference Date</h1>
+  <div class="info">
+    <div class="info">POAM ID: <span id="poamId"></span></div>
+    <div class="info">Row Number: <span id="row"></span></div>
+    <div class="info">Status Date: <span id="scheduled"></span></div>
+    <div class="info">POAM Date: <span id="reference"></span></div>
+  </div>
+   <div class="fix-section">
+      <h2>🛠️ How to Fix This Error</h2>
+      <ul>
+        <li>Review the status date (likely column O) in your spreadsheet.</li>
+        <li>Compare it with the POAM date typically located in cell D3 or on the Executive Summary Tab.</li>
+        <li>If the status date is later than the reference date, update it to be on or before the reference date.</li>
+        <li>Ensure the date format is correct and consistent (e.g., MM/DD/YYYY).</li>
+      </ul>
+    </div>
 </div>
-<section id="fix-guidance" style="margin-top: 2em; padding: 1em; background-color: #f7f7f7; border: 1px solid #ccc; border-radius: 8px;"><h2 style="color: #1F4D73;">🛠️ How to Fix This Error</h2><ul style="color: #454545; font-size: 1em; line-height: 1.6;"><li>Review the status date (likely column O) in your spreadsheet.</li><li>Compare it with the POAM date typically located in cell D3 or on the Executive Summary Tab.</li><li>If the status date is later than the reference date, update it to be on or before the reference date.</li><li>Ensure the date format is correct and consistent (e.g., MM/DD/YYYY).</li></ul></section></main>
+<section id="fix-section"><h2 style="color: #1F4D73;"> How to Fix This Error</h2><ul </li></ul></section></main>
+
 <script>
     function excelDateToJSDate(serial) {
       const utc_days = Math.floor(serial - 25569);
