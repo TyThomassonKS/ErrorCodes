@@ -1,171 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Incorrect Scheduled Completion Date</title>
-  <style>
-    :root {
-      --primary: #132B3F;
-      --secondary: #38A399;
-      --accent: #132B3F;
-      --text: ##454545;
-      --background: #f9f9f9;
-      --highlight: #d9534f;
-    }
-    
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
-      background-color: var(--background);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1;
-    }
-
-    header {
-      background-color: var(--primary);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    header img {
-      height: 50px;
-      margin-right: 15px;
-    }
-
-    header h1 {
-      color: var(--white);
-      font-size: 1.5em;
-    }
-    .container {
-      max-width: 700px;
-      margin: 2rem auto;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 2rem;
-    }
-    h1 {
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    .info p {
-      margin: 0.5rem 0;
-    }
-    .highlight {
-      font-weight: bold;
-      color: var(--highlight);
-    }
-    .fix-section {
-      margin-top: 2rem;
-      background-color: #fff8e1;
-      border-left: 5px solid var(--accent);
-      padding: 1rem;
-    }
-    .fix-section h2 {
-      margin-top: 0;
-      color: var(--accent);
-    }
-    footer {
-      background-color: var(--primary);
-      color: white;
-      margin-top: 0rem;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);      
-    }
-
-    .footer-container {
-      max-width: 500px;
-      padding: 1rem 1rem;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .footer-logo img {
-      height: 40px;
-      margin-bottom: 0rem;
-    }
-
-    .footer-text p {
-      margin: 0.5rem 0;
-      line-height: 1.6;
-      max-width: 700px;
-      font-size: 12px;
-      text-align: center;
-    }
-
-      
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incorrect Completion Date</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <img alt="GovRAMP Logo" src="GovRAMP Logo-White.png"/>
-  </header>
-  <main>
-  <div class="container">
-    <h1>Incorrect Scheduled Completion Date</h1>
-    <div class="info">
-      <p>POAM ID: <span class="highlight" id="poamId"></span></p>
-      <p>Expected Completion Date: <span class="highlight" id="expectedDate"></span></p>
-      <p>Effective Risk Rating: <span class="highlight" id="riskRating"></span></p>
+    <div class="container">
+        <h1>Incorrect Completion Date</h1>
+        <p>POA&M ID: <span class="highlight" id="poamId"></span></p>
+        <p>Expected Completion Date: <span class="highlight" id="expectedDate"></span></p>
+        <p>Effective Risk Rating: <span class="highlight" id="riskRating"></span></p>
     </div>
-    <div class="fix-section">
-      <h2>How to Fix This Error</h2>
-      <ul>
-        <li>Review the expected completion date in column L.</li>
-        <li>Verify the effective risk rating and its corresponding expected duration.</li>
-        <li>Ensure the scheduled date aligns with the expected duration from the start date.</li>
-        <li>Adjust the date if necessary and re-run the validation script.</li>
-        <li>Ensure all dates are in valid Excel date format.</li>
-      </ul>
-    </div>
-  </div>
-  </main>
-  <footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="GovRAMP Logo-White.png" alt="GovRAMP Logo" />
-    </div>
-    <div class="footer-text">
-      <p>
-        GovRAMP™ is a 501(c)(6) nonprofit membership organization. GovRAMP™ is not endorsed by or affiliated with FedRAMP or the United States Government.
-      </p>
-      <p>
-        &copy; 2023 GovRAMP, Inc. All rights reserved. GovRAMP™ is a trademark or registered trademark of GovRAMP™, Inc. worldwide.
-      </p>
-    </div>
-  </div>
-</footer>
-  <script>
-    function excelDateToJSDate(serial) {
-      const utc_days = Math.floor(serial - 25569);
-      const utc_value = utc_days * 86400;
-      const date_info = new Date(utc_value * 1000);
-      return date_info.toDateString();
-    }
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const poamId = urlParams.get('id');
-    const expected = urlParams.get('expected');
-    const risk = urlParams.get('risk');
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const poamId = urlParams.get('id');
+        const expectedDate = urlParams.get('expected');
+        const riskRating = urlParams.get('risk');
 
-    document.getElementById('poamId').textContent = poamId || 'N/A';
-    document.getElementById('expectedDate').textContent = expected ? excelDateToJSDate(expected) : 'N/A';
-    document.getElementById('riskRating').textContent = risk || 'N/A';
-  </script>
+        // Set the values in the HTML
+        document.getElementById('poamId').textContent = poamId;
+        document.getElementById('expectedDate').textContent = expectedDate;
+        document.getElementById('riskRating').textContent = riskRating;
+    </script>
 </body>
 </html>
