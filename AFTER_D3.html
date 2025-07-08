@@ -1,44 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Scheduled Date After Reference Date</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 20px;
-            border: 2px solid #ffeeba;
-            margin: 40px;
-            border-radius: 10px;
-        }
-        h1 {
-            color: #721c24;
-        }
-        .warning-icon {
-            font-size: 40px;
-            color: #856404;
-        }
-        .details {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #d63384;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scheduled Date After D3 Warning</title>
+  <style>
+    :root {
+      --primary: #1F4D73;
+      --secondary: #38A399;
+      --accent: #087DBF;
+      --text: #454545;
+      --white: #FFFFFF;
+      --black: #000000;
+      --dark-blue: #132B3F;
+      --gray-light: #C4C4C4;
+      --gray-medium: #DADADA;
+      --blue-muted: #4A708F;
+      --teal: #61C7B8;
+      --blue-light: #6BB0D9;
+      --gray-bg: #EEEEEE;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--gray-bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 50px;
+      margin-right: 1rem;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    .warning {
+      background-color: var(--accent);
+      color: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .warning h2 {
+      margin-top: 0;
+    }
+
+    .details {
+      margin-top: 1rem;
+      background-color: var(--white);
+      color: var(--black);
+      padding: 1rem;
+      border-left: 5px solid var(--accent);
+    }
+
+    .details p {
+      margin: 0.5rem 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="warning-icon">⚠️</div>
-    <h1>Scheduled Date is After Reference Date</h1>
-    <div class="details">
-        <p><span class="highlight">POA&M ID:</span> ABC-0123</p>
-        <p><span class="highlight">Row:</span> 6</p>
-        <p><span class="highlight">Scheduled Date:</span> January 26, 2025</p>
-        <p><span class="highlight">Reference Date (D3):</span> January 26, 2025</p>
-        <p>This indicates that the scheduled completion date is later than the reference date, which may require correction or justification.</p>
+  <header>
+    <img src="Logo.jpg" alt="GovRAMP Logo" />
+    <h1>GovRAMP Compliance Alert</h1>
+  </header>
+  <main>
+    <div class="warning">
+      <h2>⚠️ Scheduled Date Exceeds Reference Date (D3)</h2>
+      <p>This POA&M entry has a scheduled completion date that is later than the reference date (D3).</p>
+      <div class="details" id="details">
+        <p><strong>POA&M ID:</strong> <span id="poamId"></span></p>
+        <p><strong>Row:</strong> <span id="row"></span></p>
+        <p><strong>Scheduled Date (Excel Serial):</strong> <span id="scheduled"></span></p>
+        <p><strong>Reference Date (Excel Serial):</strong> <span id="reference"></span></p>
+      </div>
     </div>
+  </main>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    document.getElementById("poamId").textContent = getQueryParam("id") || "N/A";
+    document.getElementById("row").textContent = getQueryParam("row") || "N/A";
+    document.getElementById("scheduled").textContent = getQueryParam("scheduled") || "N/A";
+    document.getElementById("reference").textContent = getQueryParam("reference") || "N/A";
+  </script>
 </body>
 </html>
