@@ -119,14 +119,14 @@
   <div class="container">
        <h1>Date Difference Error</h1>
     <div class="info">
-        <p>POA&M ID: <span class="highlight"><span id="poam-id"></span>N/A</span></p>
-        <p>Row: <span class="highlight"><span id="row"></span>N/A</span></p>
-        <p>Original Detection Date (K): <span class="highlight"> <span id="original-detection-date"></span> (<span id="original-detection-serial">N/A</span>)</span></p>
-        <p>Scheduled Completion Date (L): <span class="highlight"><span id="scheduled-completion-date"></span> (<span id="scheduled-completion-serial">N/A</span>)</span></p>
-        <p>Expected Scheduled Completion Date: <span class="highlight"><span id="expected-scheduled-date"></span>N/A</span></p>
-        <p>Expected Days: <span class="highlight"><span id="expected-days"></span>N/A</span> </p>
-        <p>Current Difference: <span class="highlight"><span id="current-difference"></span>N/A</span></p>
-        <p>Effective Risk: <span class="highlight"><span id="effective-risk"></span>N/A</span></p>
+        <p>POA&M ID: <span class="highlight"><span id="poam-id"></span></span></p>
+        <p>Row: <span class="highlight"><span id="row"></span></span></p>
+        <p>Original Detection Date (K): <span class="highlight"> <span id="original-detection-date"></span> (<span id="original-detection-serial"></span>)</span></p>
+        <p>Scheduled Completion Date (L): <span class="highlight"><span id="scheduled-completion-date"></span> (<span id="scheduled-completion-serial"></span>)</span></p>
+        <p>Expected Scheduled Completion Date: <span class="highlight"><span id="expected-scheduled-date"></span></span></p>
+        <p>Expected Days: <span class="highlight"><span id="expected-days"></span></span> </p>
+        <p>Current Difference: <span class="highlight"><span id="current-difference"></span></span></p>
+        <p>Effective Risk: <span class="highlight"><span id="effective-risk"></span></span></p>
     </div>
     <div class="fix-section">
       <h2>How to Fix This Error</h2>
@@ -155,22 +155,38 @@
     </div>
   </div>
 </footer>
-  <script>
-    function excelDateToJSDate(serial) {
-      const utc_days = Math.floor(serial - 25569);
-      const utc_value = utc_days * 86400;
-      const date_info = new Date(utc_value * 1000);
-      return date_info.toDateString();
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const poamId = urlParams.get('id');
-    const expected = urlParams.get('expected');
-    const risk = urlParams.get('risk');
-
-    document.getElementById('poamId').textContent = poamId || 'N/A';
-    document.getElementById('expectedDate').textContent = expected ? excelDateToJSDate(expected) : 'N/A';
-    document.getElementById('riskRating').textContent = risk || 'N/A';
-  </script>
+<script>
+     // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const poamId = urlParams.get('id') || 'missing value';
+        const row = urlParams.get('row') || 'missing value';
+        const originalDetectionDate = urlParams.get('originalDate') || 'missing value';
+        const scheduledCompletionDate = urlParams.get('scheduledDate') ||'missing value';
+        const expectedDays = urlParams.get('expected') || 'missing value';
+        const currentDifference = urlParams.get('current') || 'missing value';
+        const effectiveRisk = urlParams.get('risk') || 'missing value';
+        
+        // Function to convert Excel serial date to JavaScript date and add one day
+        function excelSerialDateToJSDate(serial) {
+            const excelEpoch = new Date(Date.UTC(1899, 11, 30)); // Excel epoch date
+            const jsDate = new Date(excelEpoch.getTime() + serial * 86400000); // Add serial days in milliseconds
+            jsDate.setDate(jsDate.getDate() + 1); // Add one day
+            return jsDate;
+        }
+        
+        const expectedScheduledDate = new Date(excelSerialDateToJSDate(originalDetectionDate).getTime() + expectedDays * 24 * 60 * 60 * 1000).toDateString();
+        
+        // Set the values in the HTML
+        document.getElementById('poam-id').textContent = poamId;
+        document.getElementById('row').textContent = row;
+        document.getElementById('original-detection-date').textContent = excelSerialDateToJSDate(originalDetectionDate).toDateString();
+        document.getElementById('original-detection-serial').textContent = originalDetectionDate;
+        document.getElementById('scheduled-completion-date').textContent = excelSerialDateToJSDate(scheduledCompletionDate).toDateString();
+        document.getElementById('scheduled-completion-serial').textContent = scheduledCompletionDate;
+        document.getElementById('expected-scheduled-date').textContent = expectedScheduledDate;
+        document.getElementById('expected-days').textContent = expectedDays;
+        document.getElementById('current-difference').textContent = currentDifference;
+        document.getElementById('effective-risk').textContent = effectiveRisk;
+    </script>
 </body>
 </html>
