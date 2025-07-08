@@ -1,79 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Difference Error</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            margin: 10px 0;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #d9534f;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Incorrect Scheduled Completion Date</title>
+  <style>
+    :root {
+      --primary: #132B3F;
+      --secondary: #38A399;
+      --accent: #132B3F;
+      --text: ##454545;
+      --background: #f9f9f9;
+      --highlight: #d9534f;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header img {
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    header h1 {
+      color: var(--white);
+      font-size: 1.5em;
+    }
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+    h1 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .info p {
+      margin: 0.5rem 0;
+    }
+    .highlight {
+      font-weight: bold;
+      color: var(--highlight);
+    }
+    .fix-section {
+      margin-top: 2rem;
+      background-color: #fff8e1;
+      border-left: 5px solid var(--accent);
+      padding: 1rem;
+    }
+    .fix-section h2 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+    footer {
+      background-color: var(--primary);
+      color: white;
+      margin-top: 0rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);      
+    }
+
+    .footer-container {
+      max-width: 500px;
+      padding: 1rem 1rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-logo img {
+      height: 40px;
+      margin-bottom: 0rem;
+    }
+
+    .footer-text p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+      max-width: 700px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+      
+  </style>
 </head>
 <body>
-   <div class="container">
-        <h1>Date Difference Error</h1>
-        <p><span class="highlight">POA&M ID:</span> <span id="poam-id"></span></p>
-        <p><span class="highlight">Row:</span> <span id="row"></span></p>
-        <p><span class="highlight">Original Detection Date (K):</span> <span id="original-detection-date"></span> (<span id="original-detection-serial"></span>)</p>
-        <p><span class="highlight">Scheduled Completion Date (L):</span> <span id="scheduled-completion-date"></span> (<span id="scheduled-completion-serial"></span>)</p>
-        <p><span class="highlight">Expected Scheduled Completion Date:</span> <span id="expected-scheduled-date"></span></p>
-        <p><span class="highlight">Expected Days:</span> <span id="expected-days"></span></p>
-        <p><span class="highlight">Current Difference:</span> <span id="current-difference"></span></p>
-        <p><span class="highlight">Effective Risk:</span> <span id="effective-risk"></span></p>
+  <header>
+    <img alt="GovRAMP Logo" src="GovRAMP Logo-White.png"/>
+  </header>
+  <main>
+  <div class="container">
+       <h1>Date Difference Error</h1>
+    <div class="info">
+        <p>POA&M ID: <span class="highlight"><span id="poam-id"></span>N/A</span></p>
+        <p>Row: <span class="highlight"><span id="row"></span>N/A</span></p>
+        <p>Original Detection Date (K): <span class="highlight"> <span id="original-detection-date"></span> (<span id="original-detection-serial">N/A</span>)</span></p>
+        <p>Scheduled Completion Date (L): <span class="highlight"><span id="scheduled-completion-date"></span> (<span id="scheduled-completion-serial">N/A</span>)</span></p>
+        <p>Expected Scheduled Completion Date: <span class="highlight"><span id="expected-scheduled-date"></span>N/A</span></p>
+        <p>Expected Days: <span class="highlight"><span id="expected-days"></span>N/A</span> </p>
+        <p>Current Difference: <span class="highlight"><span id="current-difference"></span>N/A</span></p>
+        <p>Effective Risk: <span class="highlight"><span id="effective-risk"></span>N/A</span></p>
     </div>
+    <div class="fix-section">
+      <h2>How to Fix This Error</h2>
+      <ul>
+        <li>Review the expected completion date in column L.</li>
+        <li>Verify the effective risk rating and its corresponding expected duration.</li>
+        <li>Ensure the scheduled date aligns with the expected duration from the start date.</li>
+        <li>Adjust the date if necessary and re-run the validation script.</li>
+        <li>Ensure all dates are in valid Excel date format.</li>
+      </ul>
+    </div>
+  </div>
+  </main>
+  <footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="GovRAMP Logo-White.png" alt="GovRAMP Logo" />
+    </div>
+    <div class="footer-text">
+      <p>
+        GovRAMP™ is a 501(c)(6) nonprofit membership organization. GovRAMP™ is not endorsed by or affiliated with FedRAMP or the United States Government.
+      </p>
+      <p>
+        &copy; 2023 GovRAMP, Inc. All rights reserved. GovRAMP™ is a trademark or registered trademark of GovRAMP™, Inc. worldwide.
+      </p>
+    </div>
+  </div>
+</footer>
+  <script>
+    function excelDateToJSDate(serial) {
+      const utc_days = Math.floor(serial - 25569);
+      const utc_value = utc_days * 86400;
+      const date_info = new Date(utc_value * 1000);
+      return date_info.toDateString();
+    }
 
-    <script>
-     // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const poamId = urlParams.get('id');
-        const row = urlParams.get('row');
-        const originalDetectionDate = urlParams.get('originalDate');
-        const scheduledCompletionDate = urlParams.get('scheduledDate');
-        const expectedDays = urlParams.get('expected');
-        const currentDifference = urlParams.get('current');
-        const effectiveRisk = urlParams.get('risk');
-        
-        // Function to convert Excel serial date to JavaScript date and add one day
-        function excelSerialDateToJSDate(serial) {
-            const excelEpoch = new Date(Date.UTC(1899, 11, 30)); // Excel epoch date
-            const jsDate = new Date(excelEpoch.getTime() + serial * 86400000); // Add serial days in milliseconds
-            jsDate.setDate(jsDate.getDate() + 1); // Add one day
-            return jsDate;
-        }
-        
-        const expectedScheduledDate = new Date(excelSerialDateToJSDate(originalDetectionDate).getTime() + expectedDays * 24 * 60 * 60 * 1000).toDateString();
-        
-        // Set the values in the HTML
-        document.getElementById('poam-id').textContent = poamId;
-        document.getElementById('row').textContent = row;
-        document.getElementById('original-detection-date').textContent = excelSerialDateToJSDate(originalDetectionDate).toDateString();
-        document.getElementById('original-detection-serial').textContent = originalDetectionDate;
-        document.getElementById('scheduled-completion-date').textContent = excelSerialDateToJSDate(scheduledCompletionDate).toDateString();
-        document.getElementById('scheduled-completion-serial').textContent = scheduledCompletionDate;
-        document.getElementById('expected-scheduled-date').textContent = expectedScheduledDate;
-        document.getElementById('expected-days').textContent = expectedDays;
-        document.getElementById('current-difference').textContent = currentDifference;
-        document.getElementById('effective-risk').textContent = effectiveRisk;
-    </script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const poamId = urlParams.get('id');
+    const expected = urlParams.get('expected');
+    const risk = urlParams.get('risk');
+
+    document.getElementById('poamId').textContent = poamId || 'N/A';
+    document.getElementById('expectedDate').textContent = expected ? excelDateToJSDate(expected) : 'N/A';
+    document.getElementById('riskRating').textContent = risk || 'N/A';
+  </script>
 </body>
 </html>
