@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scheduled Date After D3 Warning</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GovRAMP Schedule Date Warning</title>
+<style>
     :root {
       --primary: #1F4D73;
       --secondary: #38A399;
@@ -17,7 +18,7 @@
       --gray-medium: #DADADA;
       --blue-muted: #4A708F;
       --teal: #61C7B8;
-      --blue-light: #6BB0D9;
+      --sky: #6BB0D9;
       --gray-bg: #EEEEEE;
     }
 
@@ -31,73 +32,80 @@
 
     header {
       background-color: var(--primary);
-      color: var(--white);
-      padding: 1rem;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
     }
 
     header img {
       height: 50px;
-      margin-right: 1rem;
+      margin-right: 15px;
+    }
+
+    header h1 {
+      color: var(--white);
+      font-size: 1.5em;
     }
 
     main {
-      padding: 2rem;
+      padding: 30px;
     }
 
     .warning {
-      background-color: var(--accent);
-      color: var(--white);
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #fff3cd;
+      border-left: 6px solid #ffcc00;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 5px;
     }
 
     .warning h2 {
-      margin-top: 0;
+      color: #856404;
     }
 
-    .details {
-      margin-top: 1rem;
-      background-color: var(--white);
-      color: var(--black);
-      padding: 1rem;
-      border-left: 5px solid var(--accent);
+    .info {
+      margin-top: 10px;
+      font-size: 1.1em;
     }
 
-    .details p {
-      margin: 0.5rem 0;
+    .info span {
+      font-weight: bold;
+      color: var(--accent);
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="GovRAMP Logo-Black.png" alt="GovRAMP Logo" />
-    <h1>GovRAMP Compliance Alert</h1>
-  </header>
-  <main>
-    <div class="warning">
-      <h2>⚠️ Scheduled Date Exceeds Reference Date (D3)</h2>
-      <p>This POA&M entry has a scheduled completion date that is later than the reference date (D3).</p>
-      <div class="details" id="details">
-        <p><strong>POA&M ID:</strong> <span id="poamId"></span></p>
-        <p><strong>Row:</strong> <span id="row"></span></p>
-        <p><strong>Scheduled Date (Excel Serial):</strong> <span id="scheduled"></span></p>
-        <p><strong>Reference Date (Excel Serial):</strong> <span id="reference"></span></p>
-      </div>
-    </div>
-  </main>
-  <script>
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
+<header>
+<img alt="GovRAMP Logo" src="GovRAMP Logo-White.png"/>
+<h1>POA&M Sheet Correction Guidance</h1>
+</header>
+<main>
+<div class="warning">
+<h2>⚠️ Scheduled Date Exceeds Reference Date</h2>
+<div class="info">POA&amp;M ID: <span id="poamId"></span></div>
+<div class="info">Row Number: <span id="row"></span></div>
+<div class="info">Scheduled Date: <span id="scheduled"></span></div>
+<div class="info">Reference Date (D3): <span id="reference"></span></div>
+</div>
+<section id="fix-guidance" style="margin-top: 2em; padding: 1em; background-color: #f7f7f7; border: 1px solid #ccc; border-radius: 8px;"><h2 style="color: #1F4D73;">🛠️ How to Fix This Error</h2><ul style="color: #454545; font-size: 1em; line-height: 1.6;"><li>Review the scheduled completion date in column O of your spreadsheet.</li><li>Compare it with the POA&amp;M reference date located in cell D3.</li><li>If the scheduled date is later than the reference date, update it to be on or before the reference date.</li><li>Ensure the date format is correct and consistent (e.g., MM/DD/YYYY).</li><li>Save your changes and re-run the validation script to confirm the issue is resolved.</li></ul></section></main>
+<script>
+    function excelDateToJSDate(serial) {
+      const utc_days = Math.floor(serial - 25569);
+      const utc_value = utc_days * 86400;
+      const date_info = new Date(utc_value * 1000);
+      return date_info.toDateString();
     }
 
-    document.getElementById("poamId").textContent = getQueryParam("id") || "N/A";
-    document.getElementById("row").textContent = getQueryParam("row") || "N/A";
-    document.getElementById("scheduled").textContent = getQueryParam("scheduled") || "N/A";
-    document.getElementById("reference").textContent = getQueryParam("reference") || "N/A";
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const row = params.get("row");
+    const scheduled = params.get("scheduled");
+    const reference = params.get("reference");
+
+    document.getElementById("poamId").textContent = id || "N/A";
+    document.getElementById("row").textContent = row || "N/A";
+    document.getElementById("scheduled").textContent = scheduled ? excelDateToJSDate(Number(scheduled)) : "N/A";
+    document.getElementById("reference").textContent = reference ? excelDateToJSDate(Number(reference)) : "N/A";
   </script>
 </body>
 </html>
