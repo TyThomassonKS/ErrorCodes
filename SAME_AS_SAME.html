@@ -1,33 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Same Risk Rating Detected</title>
+  <title>High to Low Risk Adjustment</title>
   <style>
-    :root {
+           :root {
       --primary: #132B3F;
       --secondary: #38A399;
       --accent: #132B3F;
-      --text: #454545;
+      --text: ##454545;
       --background: #f9f9f9;
       --highlight: #d9534f;
     }
+    
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
     }
     body {
-      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
       background-color: var(--background);
       color: var(--text);
-     -direction: column;
+      display: flex;
+      flex-direction: column;
     }
+
     main {
       flex: 1;
     }
+
     header {
       background-color: var(--primary);
       padding: 10px 20px;
@@ -35,9 +38,15 @@
       align-items: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
+
     header img {
       height: 50px;
       margin-right: 15px;
+    }
+
+    header h1 {
+      color: var(--white);
+      font-size: 1.5em;
     }
     .container {
       max-width: 700px;
@@ -71,22 +80,32 @@
     footer {
       background-color: var(--primary);
       color: white;
+      margin-top: 0rem;
       font-size: 0.9rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);      
     }
+
     .footer-container {
       max-width: 500px;
-      padding: 1rem;
+      padding: 1rem 1rem;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
+
     .footer-logo img {
       height: 40px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0rem;
     }
+
     .footer-text p {
       margin: 0.5rem 0;
+      line-height: 1.6;
+      max-width: 700px;
       font-size: 12px;
+      text-align: center;
     }
   </style>
   <script>
@@ -94,22 +113,24 @@
       const params = new URLSearchParams(window.location.search);
       return {
         id: params.get('id') || 'missing value',
-        row: params.get('row') || 'missing value',
-        risk: params.get('risk') || 'same'
+        row: params.get('row') || 'missing value'
       };
     }
+
     function displayErrorInfo() {
-      const { id, row, risk } = getQueryParams();
+      const { id, row } = getQueryParams();
       document.getElementById('poam-id').textContent = id;
       document.getElementById('row').textContent = row;
-      document.getElementById('risk').textContent = risk.charAt(0).toUpperCase() + risk.slice(1);
     }
+
     window.onload = displayErrorInfo;
   </script>
 </head>
 <body>
   <header>
-    <img alt="GovRAMP Logo" src="GovRAMP Logo-White <div class="container">
+    <img alt="GovRAMP Logo" src="GovRAMP Logo-White.png"/>
+  </header>
+  <main>
       <h1>Same Risk Rating Detected</h1>
       <div class="info">
         <p>POA&M ID: <span class="highlight" id="poam-id"></span></p>
@@ -131,12 +152,17 @@
   <footer>
     <div class="footer-container">
       <div class="footer-logo">
-        GovRAMP Logo-White.png
+        <img src="GovRAMP Logo-White.png" alt="GovRAMP Logo" />
       </div>
       <div class="footer-text">
-        <p>GovRAMP™ is a 501(c)(6) nonprofit membership organization. GovRAMP™ is not endorsed by or affiliated with FedRAMP or the United States Government.</p>
-        <p>&copy; 2023 GovRAMP, Inc. All rights reserved.</p>
+        <p>
+          GovRAMP™ is a 501(c)(6) nonprofit membership organization. GovRAMP™ is not endorsed by or affiliated with FedRAMP or the United States Government.
+        </p>
+        <p>
+          &copy; 2023 GovRAMP, Inc. All rights reserved. GovRAMP™ is a trademark or registered trademark of GovRAMP™, Inc. worldwide.
+        </p>
       </div>
     </div>
   </footer>
-</</body>
+</body>
+</html>
