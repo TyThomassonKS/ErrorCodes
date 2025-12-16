@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Same Risk Rating Detected</title>
+  <style>
+    :root {
+      --primary: #132B3F;
+      --secondary: #38A399;
+      --accent: #132B3F;
+      --text: #454545;
+      --background: #f9f9f9;
+      --highlight: #d9534f;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+     -direction: column;
+    }
+    main {
+      flex: 1;
+    }
+    header {
+      background-color: var(--primary);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    header img {
+      height: 50px;
+      margin-right: 15px;
+    }
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+    h1 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .info p {
+      margin: 0.5rem 0;
+    }
+    .highlight {
+      font-weight: bold;
+      color: var(--highlight);
+    }
+    .fix-section {
+      margin-top: 2rem;
+      background-color: #fff8e1;
+      border-left: 5px solid var(--accent);
+      padding: 1rem;
+    }
+    .fix-section h2 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+    footer {
+      background-color: var(--primary);
+      color: white;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .footer-container {
+      max-width: 500px;
+      padding: 1rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .footer-logo img {
+      height: 40px;
+      margin-bottom: 0.5rem;
+    }
+    .footer-text p {
+      margin: 0.5rem 0;
+      font-size: 12px;
+    }
+  </style>
+  <script>
+    function getQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        id: params.get('id') || 'missing value',
+        row: params.get('row') || 'missing value',
+        risk: params.get('risk') || 'same'
+      };
+    }
+    function displayErrorInfo() {
+      const { id, row, risk } = getQueryParams();
+      document.getElementById('poam-id').textContent = id;
+      document.getElementById('row').textContent = row;
+      document.getElementById('risk').textContent = risk.charAt(0).toUpperCase() + risk.slice(1);
+    }
+    window.onload = displayErrorInfo;
+  </script>
+</head>
+<body>
+  <header>
+    <img alt="GovRAMP Logo" src="GovRAMP Logo-White <div class="container">
+      <h1>Same Risk Rating Detected</h1>
+      <div class="info">
+        <p>POA&M ID: <span class="highlight" id="poam-id"></span></p>
+        <p>Row: <span class="highlight" id="row"></span></p>
+        <p class="highlight">
+          The Adjusted Residual Risk (ARR) is the same as the Original Residual Risk (ORR): <span id="risk"></span>.
+        </p>
+      </div>
+      <div class="fix-section">
+        <h2>🛠️ How to Fix This</h2>
+        <ul>
+          <li>If ORR has not changed, ARR should be <strong>left blank</strong>.</li>
+          <li>Remove the ARR value in column S so it is empty.</li>
+          <li>Only enter ARR when the risk rating changes from the original value.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        GovRAMP Logo-White.png
+      </div>
+      <div class="footer-text">
+        <p>GovRAMP™ is a 501(c)(6) nonprofit membership organization. GovRAMP™ is not endorsed by or affiliated with FedRAMP or the United States Government.</p>
+        <p>&copy; 2023 GovRAMP, Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</</body>
